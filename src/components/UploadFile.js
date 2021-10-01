@@ -63,12 +63,20 @@ const UploadFile = () => {
                         let secondDateTo = dateConvert(groupByProject[property][k].dateTo);
 
 
-                        if (secondDateFrom > firstDateFrom && secondDateFrom < firstDateTo) {
+                        if ((secondDateFrom > firstDateFrom && secondDateFrom < firstDateTo)
+                            || (firstDateFrom > secondDateFrom && firstDateFrom < secondDateTo)) {
 
-                            if (secondDateTo < firstDateTo) {
-                                togetherWorkingDays = (secondDateTo - secondDateFrom) / (1000 * 3600 * 24);
-                            } else {
-                                togetherWorkingDays = (firstDateTo - secondDateFrom) / (1000 * 3600 * 24);
+                            if (secondDateTo > firstDateTo && firstDateFrom > secondDateFrom) {
+                                togetherWorkingDays = ((firstDateTo - firstDateFrom) / (1000 * 3600 * 24)) + 1;
+                            }
+                            else if (secondDateTo < firstDateTo && firstDateFrom > secondDateFrom) {
+                                togetherWorkingDays = ((secondDateTo - firstDateFrom) / (1000 * 3600 * 24)) + 1;
+                            }
+                            else if (secondDateTo > firstDateTo && secondDateFrom > firstDateFrom) {
+                                togetherWorkingDays = ((firstDateTo - secondDateFrom) / (1000 * 3600 * 24)) + 1;
+                            }
+                            else if (secondDateTo < firstDateTo && secondDateTo > firstDateFrom) {
+                                togetherWorkingDays = ((secondDateTo - secondDateFrom) / (1000 * 3600 * 24)) + 1;
                             }
 
                             commonWorkArr.push({
